@@ -118,9 +118,9 @@
           }
 
           if (countSec == 0 && countMin >= 0) {
+            countSec = 60
             if (countMin > 0)
               countMin--
-            countSec = 60
             timeMin.innerHTML = '0' + countMin
             timeSec.innerHTML = countSec
           }
