@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!DOCTYPE html>
+    <title>Timer</title>
+    <!--<link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+-->
+  </head>
+  <body>
+    <div id="main">
+    <div id="header">
+      <img id="logo" src="Picture1.png">
+    </div>
+    <div id="time">
+      <p id="minute" style="display:inline">00</p>
+      <p style="display:inline">:</p>
+      <p id="second" style="display:inline">00</p>
+    </div>
+    </div>
+    <input class="num" id="min" type="text">
+    <input class="num" id="sec" type="text">
+    <button onclick="setDisp(1,0,10)">Set</button>
+    <button onclick="setDisp(0,10,3)">10</button>
+    <button onclick="setDisp(0,15,5)">15</button>
+    <button onclick="setDisp(0,20,7)">20</button>
+    <button onclick="startTime()" id="startReset">Start</button>
+    <button onclick="stopTime()">Stop</button>
+
+
+
+    <script>
+      var beep = document.createElement("AUDIO")
+      var set = document.createElement("AUDIO")
+      var fBeep = document.createElement("AUDIO")
+      beep.src = 'secbeep.mp3'
+      set.src = 'set.mp3'
+      fBeep.src = 'fbeep.mp3'
+      timeMin = document.getElementById('minute')
+      timeSec = document.getElementById('second')
+      Time = document.getElementById('time')
+      startReset = document.getElementById('startReset')
+      minText = document.getElementById('min')
+      secText = document.getElementById('sec')
+
+      countMin = 0
+      countSec = 0
+      setMin = 0
+      setSec = 0
+      critVal = 0
+      setIndicator = false
+      setDisp = function (min, sec, cv) {
+        if (min == 1) {
+          setMin = minText.value
+          setSec = secText.value
+        }
+        else {
+          setMin = min
+          setSec = sec
+        }
+        countMin = setMin
+        countSec = setSec
+        critVal = cv + 1
+        if (countSec < 10)
+          timeSec.innerHTML = '0' + countSec
+          else
+            timeSec.innerHTML = countSec
+        if (countMin < 10)
+          timeMin.innerHTML = '0' + countMin
+          else
+            timeMin.innerHTML = countMin
+
+        Time.style.color = 'rgb(38,113,35)'
+        Time.style.textShadow = '13px 5px rgb(35,64,35)'
+        setIndicator = true
+        startReset.innerHTML = 'Start'
+      }
+
+      stopTime = function() {
+        clearInterval(handleTime)
+      }
+
+      startTime = function() {
+        if (setIndicator == false) {
+          clearInterval(handleTime)
+          Time.style.color = 'rgb(38,113,35)'
+          Time.style.textShadow = '13px 5px rgb(35,64,35)'
+          countMin = setMin
+          countSec = setSec
+          if (countSec < 10)
+            timeSec.innerHTML = '0' + countSec
+            else {
+              timeSec.innerHTML = countSec
+            }
+          timeMin.innerHTML = '0' + countMin
+          setIndicator = true
+          startReset.innerHTML = 'Start'
+        }
+        else {
+          timerControl()
+      }
+      }
+
+      var timerControl = function () {
+        set.play()
+        handleTime = setInterval( function () {
+          if (countSec > 0) {
+            countSec--
+            beep.play()
+            if (countSec < critVal && countMin == 0) {
+              Time.style.color = 'rgb(191,18,18)'
+              Time.style.textShadow = '13px 5px rgb(140,13,13)'
+            }
+            if (countSec < 10)
+              timeSec.innerHTML = '0' + countSec
+              else {
+                timeSec.innerHTML = countSec
+              }
+          }
+
+          if (countSec == 0 && countMin > 0) {
+            countMin--
+            timeMin.innerHTML = '0' + countMin
+          }
+
+          if (countSec == 0 && countMin == 0) {
+            console.log('end')
+            fBeep.play()
+            clearInterval(handleTime)
+            setIndicator = false
+            startReset.innerHTML = 'Reset'
+          }
+        }, 1000)
+      }
+    </script>
+    <style>
+      #time {
+        color: rgb(38,113,35);
+        text-shadow: 13px 5px rgb(35,64,35);
+        margin: -2% auto 10% auto;
+        text-align:center;
+      }
+
+      #time p {
+        font-size:2000%;
+        font-family: 'Fjalla One', sans-serif;
+      }
+
+      #logo {
+        width: 20%;
+        height: 20%;
+        margin: 0 auto;
+      }
+
+      #header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #main {
+        margin-top: 10%;
+      }
+
+      .num {
+        width: 15px;
+      }
+    </style>
+  </body>
+</html>
