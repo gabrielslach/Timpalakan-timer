@@ -10,7 +10,8 @@
   <body>
     <div id="main">
     <div id="header">
-      <img id="logo" src="Picture1.png">
+      <!--<img id="logo" src="Picture1.png">-->
+      <h2>gabrielslach.me</h2>
     </div>
     <div id="time">
       <p id="minute" style="display:inline">00</p>
@@ -30,10 +31,10 @@
 
 
     <script>
-      var beep = document.createElement("AUDIO")
+      //var beep = document.createElement("AUDIO")
       var set = document.createElement("AUDIO")
       var fBeep = document.createElement("AUDIO")
-      beep.src = 'secbeep.mp3'
+      //beep.src = 'secbeep.mp3'
       set.src = 'set.mp3'
       fBeep.src = 'fbeep.mp3'
       timeMin = document.getElementById('minute')
@@ -114,7 +115,7 @@
 
           if (countSec > 0) {
             countSec--
-            beep.play()
+            //beep.play()
             if (countSec < critVal && countMin == 0) {
               Time.style.color = 'rgb(191,18,18)'
               Time.style.textShadow = '13px 5px rgb(140,13,13)'
