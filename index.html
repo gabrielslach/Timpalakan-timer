@@ -93,7 +93,9 @@
             else {
               timeSec.innerHTML = countSec
             }
+          if (countMin < 10) {
           timeMin.innerHTML = '0' + countMin
+          }
           setIndicator = true
           startReset.innerHTML = 'Start'
         }
