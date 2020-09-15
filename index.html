@@ -111,7 +111,11 @@
             countSec = 59
             if (countMin != 0)
               countMin--
+            if (countMin < 10) {
             timeMin.innerHTML = '0' + countMin
+            } else {
+            timeMin.innerHTML = countMin
+            }
             timeSec.innerHTML = countSec
           } else {
 
